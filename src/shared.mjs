@@ -59,7 +59,7 @@ class ProcExit extends Error {
     super(`process exited with code ${code}.`);
     this.code = code;
   }
-};
+}
 
 class NotImplemented extends Error {
   constructor(modname, fieldname) {
