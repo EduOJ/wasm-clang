@@ -6,7 +6,7 @@
 const CACHE_NAME = 'v4';
 const expectedCaches = [CACHE_NAME];
 
-export self.addEventListener('activate', event => {
+module.exports = self.addEventListener('activate', event => {
   // delete any caches that aren't in expectedCaches
   event.waitUntil(
     caches.keys().then(keys => Promise.all(
@@ -19,7 +19,7 @@ export self.addEventListener('activate', event => {
   );
 });
 
-export self.addEventListener('fetch', function(event) {
+module.exports = self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
       .then(function(response) {
