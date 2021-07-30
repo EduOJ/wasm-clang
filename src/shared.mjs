@@ -489,6 +489,7 @@ class API {
     this.lldFilename = options.lld || 'lld';
     this.sysrootFilename = options.sysroot || 'sysroot.tar';
     this.showTiming = options.showTiming || false;
+    this.cdnUrl = options.cdnUrl || 'https://cdn.jsdelivr.net/npm/wasm-clang@0.0.1/bin/';
 
     this.clangCommonArgs = [
       '-disable-free',
@@ -504,7 +505,7 @@ class API {
     this.memfs = new MemFS({
       compileStreaming : this.compileStreaming,
       hostWrite : this.hostWrite,
-      memfsFilename : options.memfs || 'memfs',
+      memfsFilename : options.cdnUrl + options.memfs,
     });
     this.ready = this.memfs.ready.then(
         () => { return this.untar(this.memfs, this.sysrootFilename); });
@@ -565,7 +566,7 @@ class API {
 
     await this.ready;
     this.memfs.addFile(input, contents);
-    const clang = await this.getModule(this.clangFilename);
+    const clang = await this.getModule(this.cdnUrl + this.clangFilename);
     return await this.run(clang, 'clang', '-cc1', '-emit-obj',
                           ...this.clangCommonArgs, '-O2', '-o', obj, '-x',
                           'c++', input);
@@ -581,7 +582,7 @@ class API {
 
     await this.ready;
     this.memfs.addFile(input, contents);
-    const clang = await this.getModule(this.clangFilename);
+    const clang = await this.getModule(this.cdnUrl + this.clangFilename);
     await this.run(clang, 'clang', '-cc1', '-S', ...this.clangCommonArgs,
                           `-triple=${triple}`, '-mllvm',
                           '--x86-asm-syntax=intel', `-O${opt}`,
@@ -595,7 +596,7 @@ class API {
     const libdir = 'lib/wasm32-wasi';
     const crt1 = `${libdir}/crt1.o`;
     await this.ready;
-    const lld = await this.getModule(this.lldFilename);
+    const lld = await this.getModule(this.cdnUrl + this.lldFilename);
     return await this.run(
         lld, 'wasm-ld', '--no-threads',
         '--export-dynamic',  // TODO required?
