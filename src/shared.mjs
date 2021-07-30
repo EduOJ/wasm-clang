@@ -143,7 +143,7 @@ class Memory {
       return buf.length;
     }
   }
-};
+}
 
 class MemFS {
   constructor(options) {
@@ -513,6 +513,16 @@ class API {
   hostLog(message) {
     const yellowArrow = '\x1b[1;93m>\x1b[0m ';
     this.hostWrite(`${yellowArrow}${message}`);
+  }
+
+  async compileStreaming(filename) {
+      const response = await fetch(filename);
+      return WebAssembly.compile(await response.arrayBuffer());
+  }
+
+  async readBuffer(filename) {
+      const response = await fetch(filename);
+      return response.arrayBuffer();
   }
 
   async hostLogAsync(message, promise) {
