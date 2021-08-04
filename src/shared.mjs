@@ -636,8 +636,8 @@ class API {
   }
 }
 
-export { API };
-
 return API;
 
 })();
+
+export { API };
