@@ -315,7 +315,7 @@ class App {
           return true;
         }
         // Don't allow rAF unless you return the right code.
-        console.log(`Disallowing rAF since exit code is ${exn.code}.`);
+        // console.log(`Disallowing rAF since exit code is ${exn.code}.`);
         this.allowRequestAnimationFrame = false;
         if (exn.code == 0) {
           return false;
@@ -528,16 +528,16 @@ class API {
 
   async hostLogAsync(message, promise) {
     const start = +new Date();
-    this.hostLog(`${message}...`);
+    // this.hostLog(`${message}...`);
     const result = await promise;
     const end = +new Date();
-    this.hostWrite(' done.');
+    // this.hostWrite(' done.');
     if (this.showTiming) {
       const green = '\x1b[92m';
       const normal = '\x1b[0m';
       this.hostWrite(` ${green}(${msToSec(start, end)}s)${normal}\n`);
     }
-    this.hostWrite('\n');
+    // this.hostWrite('\n');
     return result;
   }
 
@@ -605,13 +605,13 @@ class API {
   }
 
   async run(module, ...args) {
-    this.hostLog(`${args.join(' ')}\n`);
+    // this.hostLog(`${args.join(' ')}\n`);
     const start = +new Date();
     const app = new App(module, this.memfs, ...args);
     const instantiate = +new Date();
     const stillRunning = await app.run();
     const end = +new Date();
-    this.hostWrite('\n');
+    // this.hostWrite('\n');
     if (this.showTiming) {
       const green = '\x1b[92m';
       const normal = '\x1b[0m';
