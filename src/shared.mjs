@@ -552,7 +552,7 @@ class API {
   async untar(memfs, filename) {
     await this.memfs.ready;
     const promise = (async () => {
-      const tar = new Tar(await this.readBuffer(filename));
+      const tar = new Tar(await this.readBuffer(this.cdnUrl + filename));
       tar.untar(this.memfs);
     })();
     await this.hostLogAsync(`Untarring ${filename}`, promise);
