@@ -505,7 +505,7 @@ class API {
     this.memfs = new MemFS({
       compileStreaming : this.compileStreaming,
       hostWrite : this.hostWrite,
-      memfsFilename : options.cdnUrl + options.memfs,
+      memfsFilename : this.cdnUrl + (options.memfs || 'memfs'),
     });
     this.ready = this.memfs.ready.then(
         () => { return this.untar(this.memfs, this.sysrootFilename); });
