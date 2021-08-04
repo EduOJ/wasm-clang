@@ -1,6 +1,6 @@
 {
-  "name": "wasm-clang",
-  "version": "0.0.1",
+  "name": "@eduoj/wasm-clang",
+  "version": "0.0.2",
   "description": "A npm package for running clang in browser.",
   "main": "shared.mjs",
   "scripts": {
