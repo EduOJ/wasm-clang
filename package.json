@@ -2,7 +2,7 @@
   "name": "wasm-clang",
   "version": "0.0.1",
   "description": "A npm package for running clang in browser.",
-  "main": "index.js",
+  "main": "shared.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,5 +11,8 @@
     "url": "https://github.com/EduOJ/wasm-clang"
   },
   "author": "littlebear0729 leoleoasd binji",
-  "license": "MIT Apache"
+  "license": "MIT Apache",
+  "exports": {
+    "." : "./src/shared.mjs"
+  }
 }
