@@ -634,6 +634,10 @@ class API {
                                             WebAssembly.compile(buffer));
     return await this.run(testMod, wasm);
   }
+
+  setStdinStr(str) {
+    this.memfs.setStdinStr(str);
+  }
 }
 
 return API;
