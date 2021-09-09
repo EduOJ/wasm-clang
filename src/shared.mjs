@@ -563,12 +563,13 @@ class API {
     const contents = options.contents;
     const obj = options.obj;
     const opt = options.opt || '2';
+    const clangFlags = options.clangFlags || [];
 
     await this.ready;
     this.memfs.addFile(input, contents);
     const clang = await this.getModule(this.cdnUrl + this.clangFilename);
     return await this.run(clang, 'clang', '-cc1', '-emit-obj',
-                          ...this.clangCommonArgs, '-O2', '-o', obj, '-x',
+                          ...this.clangCommonArgs, ...clangFlags, '-O'+opt, '-o', obj, '-x',
                           'c++', input);
   }
 
@@ -622,11 +623,11 @@ class API {
     return stillRunning ? app : null;
   }
 
-  async compileLinkRun(contents) {
+  async compileLinkRun(contents, options) {
     const input = `test.cc`;
     const obj = `test.o`;
     const wasm = `test.wasm`;
-    await this.compile({input, contents, obj});
+    await this.compile({input, contents, obj, clangFlags: options.clangFlags});
     await this.link(obj, wasm);
 
     const buffer = this.memfs.getFileContents(wasm);
