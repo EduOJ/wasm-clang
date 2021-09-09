@@ -2,6 +2,7 @@
   "name": "@eduoj/wasm-clang",
   "description": "A npm package for running clang in browser.",
   "main": "shared.mjs",
+  "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
